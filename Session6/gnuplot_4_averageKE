@@ -1,0 +1,22 @@
+set terminal gif
+set output 'scatter_4_hist.gif'
+set style data histogram
+
+stats 'TASK4-KE.dat' every ::1 using 2 prefix "A"
+stats 'TASK4-KE.dat' every ::1 using 3 prefix "B"
+stats 'TASK4-KE.dat' every ::1 using 4 prefix "C"
+stats 'TASK4-KE.dat' every ::1 using 5 prefix "D"
+stats 'TASK4-KE.dat' every ::1 using 6 prefix "E"
+stats 'TASK4-KE.dat' every ::1 using 7 prefix "F"
+stats 'TASK4-KE.dat' every ::1 using 8 prefix "G"
+stats 'TASK4-KE.dat' every ::1 using 9 prefix "H"
+stats 'TASK4-KE.dat' every ::1 using 10 prefix "I"
+stats 'TASK4-KE.dat' every ::1 using 11 prefix "J"
+
+set print "average_ke.dat"
+
+print A_mean, A_stddev, B_mean, B_stddev, C_mean, C_stddev, D_mean, D_stddev, E_mean, E_stddev, F_mean, F_stddev, G_mean, G_stddev, H_mean, H_stddev, I_mean, I_stddev, J_mean, J_stddev
+
+plot for [COL=1:20:2] "average_ke.dat" using COL notitle
+
+#TODO: plot error bars on histogram

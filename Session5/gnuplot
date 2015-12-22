@@ -1,0 +1,14 @@
+set terminal gif animate delay 10
+set output 'task2.gif'
+set grid
+set object 1 circle at 0,0 size char 1 fillcolor rgb "black" fillstyle solid
+set style line 1 lc rgb '#0060ad' lt 1 lw 2 pt 7 ps 1.5
+do for [ii=1:400] {
+    set xrange [-2:2]
+    set yrange [-2:2]
+    plot "task2.dat" every ::1::50*ii using 2:3 title "angle: 0" with linespoints ls 0 linecolor 0, \
+        "task2.dat" every ::1::50*ii using 14:15 title "angle: 20" with linespoints ls 0 linecolor 1, \
+        "task2.dat" every ::1::50*ii using 56:57 title "angle: 90" with linespoints ls 0 linecolor 2, \
+	 "task2.dat" every ::1::50*ii using 26:27 title "angle: 40" with linespoints ls 0 linecolor 3;
+}
+#TODO: add a particle leading the trajectory

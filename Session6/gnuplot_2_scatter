@@ -1,0 +1,9 @@
+set terminal gif
+set output 'scatter_2_vel_vel.gif'
+set xrange [-6:6]
+set yrange [-6:6]
+set xlabel "particle 1 vel"
+set ylabel "particle 2 vel"
+set title "Scatterplot of velocities in linear 2 particle system"
+plot "TASK2-scatter.dat" using 1:2 with points notitle
+

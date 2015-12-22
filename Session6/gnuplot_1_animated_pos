@@ -1,0 +1,19 @@
+set terminal gif animate delay 20
+set output 'animated_pos.gif'
+set xlabel "position"
+set title "Animation of particles in a box"
+do for [i =1:100] {
+	set xrange [0:10]
+	set yrange [-1:1]
+	plot "TASK1-pos.dat" every ::i::i using 2:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 3:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 4:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 5:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 6:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 7:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 8:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 9:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 10:(0):(0.0625) with circle notitle,\
+	"TASK1-pos.dat" every ::i::i using 11:(0):(0.0625) with circle notitle,\
+
+}

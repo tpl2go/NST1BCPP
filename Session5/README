@@ -1,0 +1,66 @@
+The goal of this program is to simulate the orbit of planets
+around the sun and the effect of initial direction on a planet's trajectory.
+
+Technical Description of Program:
+1) Use of Vector object
+Vectors quantities (for representing position, velocity and acceleration )
+are represented by Vector2D objects which contains associated vector operations
+2) Choice of update algorithm
+Two algorithms are available for the user to update the simulation through time ---
+a (naive) eulerUpdate, and a leapfrogUpdate
+3) Structs for configuration and state
+Particles states (eg: position) and configuration (eg:mass) are contained using
+structs. The struct object is passed to the update function to advance the particle
+state in time. Simulation configurations and state are contained in structs as well
+4) Output of simulation result
+A fileIO stream is used as a logger for the simulation results. At the end of every
+timestep, the state of all particles are logged. By convention, the output file
+is a ".dat" text file. Data is delimited by a tab ("\t"). 
+5) pass by reference/return by value
+In writing update functions for structs, I learnt that it is better to pass
+the struct into the function by reference to avoid lots of copying of structs.
+This can be done by adding an ampersand to the argument type. ofstream is a stream
+object. However it cannot be returned because it is not a copyable object
+There are differences between constructing an object in the stack and constructing
+an object in the heap. The latter can be done with the "new" keyword. But it
+must be manually deleted later.
+6) Plotting style
+Plotting is done with gnuplot. Specific challenges I had with gnuplot: how to plot datafiles,
+how to index data in datafiles, how animate plots, how to change the plotstyle
+and plot color, how to plot a single plot
+7) What to plot
+Since the particle trajectories are independent of each other, I simulated many
+particles and collated the results into a large datafile. The choice of what to plot
+is made in the gnuplot script.
+
+Physics question 1:
+I have a particle in the sun's gravitational field with some kinetic energy. Does the
+period of the orbit depend on particle velocity direction? 
+
+Simulation method:
+I made N particles at a single point travelling in N different directions. Each have a unit
+velocity.  The particles are non-interacting.
+
+Simulation insights
+Yes. The particles, assuming they did not crash into the sun, all had the same
+orbital periods. The orbits were also elliptical with the sun roughly at the focus
+of the eclipse. Some numerical error were observed in the path of some particles.
+Their orbits almost closed (within one pixel range of the previous orbit). These
+numerical errors arose because the particles came close to the origin. With every update,
+the 1/r^2 computation magnified the floating point representation error, which is especially
+significant when r is small.
+
+Physics question 2:
+What happens if I have a 1/r force law instead. For example I have a infinitely long line of
+mass centered on the origin.
+
+Simulation Method:
+I made N particles at a single point travelling in N different directions. Each have a unit
+velocity.  The particles are non-interacting. Force was 1/r instead of 1/r^2
+
+Simulation insights:
+The orbits were non elliptical. They made (highly beautiful) loops like leaves around the sun. I wonder if those
+loops can be described with polar coordinates. Their orbits did not close however. I wonder
+if I run the simulation long enough the loops will revolve an integer amount of time and 
+return to the starting position. 
+

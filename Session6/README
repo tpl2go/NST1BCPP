@@ -1,0 +1,54 @@
+COMPUTATION GOALS
+1) Write a working 1D particles in a box simulation from scratch
+2) (TASK 1) Animate the balls bouncing in box
+
+Physics Goals
+1) (TASK 2) Analyse the scatterplot of velocities for a linear two particles system
+2) (TASK 3) Analyse the scatterplot of velocities for a linear N particles system
+3) (TASK 4) Verify that on average, all particle, irregardless of mass, have the same kinetic energy.
+4) (TASK 5) Verify that a particle's velocity is gaussian distributed in a linear N particle system
+5) (TASK 6) Verify that a particle's kinetic energy is chisquared distributed in a linear N particle system
+
+How my simulation works
+There are three structs used: The first is used to wrap a particle data. The second is used to wrap
+the time domain simulation data. The third is used to wrap the setup information of the simulation
+(eg: how many balls are used. How big the box is.)
+
+The simulation loop will update all the particles' positions through a fixed timestep 
+based on their velocities. After every update, the program checks if any balls had "collided"
+(with another ball) or "bounced" with the wall. The loop that checks for collision and bounces
+is a primitive O(N^2) algorithm. Pairs of velocities are updated after collision using
+simple zero momentum frame calculations. My primitive bounce function only updates the
+velocity of the particle. So in some cases we might see the ball going slightly out of
+the boundary. The wall is thus not hard.
+
+The simulation outputs data through LOGGERS. The loggers are objects what when initiallized,
+will create a log file with appropriate headers in the operating system.
+
+What were my difficulties
+Getting gnuplot to do things is by far the greatest consumer of time. For the longest
+time I could not figure out how to create a histogram of frequency. Only managed when
+I looked at the course website. I still do not know how to plot histograms with errorbars.
+
+Results
+(TASK 1) The animations works!
+(TASK 2) The velocities form an ellipse!
+(TASK 3) The velocities fill an ellipse!
+(TASK 4) The kinetic energies are approximately the same. They are within the error bounds of each other.
+Still need to figure out how to plot the errorbars
+(TASK 5) The velocity distribution do seem gaussian for all particles
+(TASK 6) The kinetic energy distribution do seem chi-squared distributed 
+for all particles. This of course makes sense. If the velocity is guassian distrubuted, the square of velocity
+will be chi-square distributed.
+
+Discussion
+The elliptical scatterplot of velocities is by far the most interesting result to emerge from
+this simulation. I did not expect it. But on thinking about it must be true. m1*v1 + m2*v2 must be conserved.
+Then, if we plot v1 and v2 and separate axis, we will get an ellipse, with m2 the semi-major axis for v1 and
+vice-versa. 
+
+The filled ellipse of the scatterplot of N particle velocities is also interesting
+but understandable once we understand the 2 particle case. The amount of linear momemtum
+in particle1 and particle 2 combined can vary between 0 and a maximum (which is some partial sum of all
+N particle's momentum). Consequency the scatterplot of v1 and v2 is an ellipse with varying radius.
+The ratio of semi-major axis is still the ratio of the masses.
